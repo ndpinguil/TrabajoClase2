@@ -28,6 +28,12 @@ import {
   BlogPostList,
   BlogPostShow,
 } from "./pages/blog-posts";
+import{
+  ProductsCreate,
+  ProductsEdit,
+  ProductsList,
+  ProductsShow,
+} from "./pages/products";
 import {
   CategoryCreate,
   CategoryEdit,
@@ -63,6 +69,16 @@ function App() {
                     },
                   },
                   {
+                    name: "products",
+                    list: "/products",
+                    create: "/products/create",
+                    edit: "/products/edit/:id",
+                    show: "/products/show/:id",
+                    meta: {
+                      canDelete: true,
+                    },
+                  },
+                  {
                     name: "categories",
                     list: "/categories",
                     create: "/categories/create",
@@ -77,7 +93,7 @@ function App() {
                   syncWithLocation: true,
                   warnWhenUnsavedChanges: true,
                   useNewQueryKeys: true,
-                  projectId: "Yhdoc9-345RJU-vGOBS0",
+                  projectId: "8fstlQ-Xe2il2-CXopff",
                 }}
               >
                 <Routes>
@@ -88,7 +104,7 @@ function App() {
                         fallback={<CatchAllNavigate to="/login" />}
                       >
                         <ThemedLayoutV2
-                          Header={Header}
+                          Header={() => <Header sticky />}
                           Sider={(props) => <ThemedSiderV2 {...props} fixed />}
                         >
                           <Outlet />
@@ -114,6 +130,13 @@ function App() {
                     </Route>
                     <Route path="*" element={<ErrorComponent />} />
                   </Route>
+                  <Route path="/products">
+                      <Route index element={<ProductsList />} />
+                      <Route path="create" element={<ProductsCreate />} />
+                      <Route path="edit/:id" element={<ProductsEdit />} />
+                      <Route path="show/:id" element={<ProductsShow />} />
+                    </Route>
+                    <Route path="*" element={<ErrorComponent />} />
                   <Route
                     element={
                       <Authenticated
